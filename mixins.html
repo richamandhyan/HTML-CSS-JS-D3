@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			(function(){
+				'use strict';
+
+				function Shape () {}
+					Shape.prototype.getArea = function(){
+						return this.side[0] * this.side[1];
+					}
+				function Position(){}
+				Position.prototype.getCoords = function(){
+					return this.coords.join(', ');
+				}	
+
+				function Rectangle(length,width,left,right){
+					this.side = [length,width];
+					this.coords = [left,right];
+
+				}	
+
+				mixin (Rectangle,Position.prototype,Shape.prototype);
+
+				var rectangle = new Rectangle(30,20,300,400);
+
+				
+
+				/* function mixin (Rec,Pos,Sha){
+				// var rect = {};
+				// 	Object.keys(Sha).forEach(
+				// 		function(item){
+				// 			rect[item] = Sha[item];
+				// 		});
+				// 	Object.keys(Pos).forEach(
+				// 		function(item){
+				// 			rect[item] = Pos[item];
+				// 		});
+
+				// Rec.prototype = rect;
+				 }; */ 
+				//using cmd +/
+
+				//debugger;
+
+				// Generic mixin function 
+
+				function mixin(){
+					var newPrototype = {} , item;
+					var args = Array.prototype.slice.call(arguments);
+					var targetObject = args[0];
+					var prototypes = args.slice(1);
+
+					prototypes.forEach(function(prototype){
+						for (item in prototype){
+							if(prototype.hasOwnProperty(item) ){
+								newPrototype[item] = prototype[item];
+							}
+						}
+					})
+				
+
+				targetObject.prototype = newPrototype;
+				targetObject.prototype.constructor = targetObject;
+
+			}
+
+				console.log(rectangle.getArea());
+				console.log(rectangle.getCoords());
+				console.log(rectangle);
+
+
+
+			})();
+
+		</script>
+	</body>
+	</html>	

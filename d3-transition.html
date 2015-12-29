@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>d3-transition </title>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+</head>
+<body>
+	<script>
+		var canvas = d3.select('body')
+						.append('svg')
+						.attr('width', 500)
+						.attr('height', 500)
+
+		var circle = canvas.append('circle')
+						.attr('cx', 50)
+						.attr('cy', 50)
+						.attr('r' ,25);
+
+		circle.transition()
+			.duration(1500)//milliseconds and default value is 500
+			.delay(1000)// 2 sec
+			.attr('cx',150)
+			.transition()
+			.attr('cy',200)
+			.transition()
+			.attr('cx',50)
+			.transition()
+			.attr('cy',25)
+			.each('start', function () { d3.select(this).attr('fill','red'); })
+
+
+
+	</script>
+</body>
+</html>

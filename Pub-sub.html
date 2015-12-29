@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+
+	<script>
+			(function(){
+					'use strict';
+
+					var newspaper = (function newspaper(){
+
+					var subscribers = {};
+
+					var subscribe = function (event,callback){
+
+					if(!subscribers[event]){
+					subscribers[event] = [callback];
+					} else {
+					subscribers[event].push(callback);
+					}
+					}
+
+					var publish = function (event,callback) {
+					subscribers[event].forEach(function(callback){
+					callback();
+					});	
+					}
+
+					return {
+					subscribe: subscribe,
+					publish: publish
+					};
+					})();
+
+
+					newspaper.subscribe('sport',function(callback){
+					console.log("Hey the Sport News is here");
+					});
+
+					newspaper.subscribe('movies',function(callback){
+					console.log("Hey movies are out!");
+					});
+
+newspaper.publish('sport');
+newspaper.publish('movies');
+
+})();
+	</script>
+</body>
+</html>

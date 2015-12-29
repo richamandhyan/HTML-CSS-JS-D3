@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		 (function (){
+		 	'use strict';
+				
+		 		var newspaper = (function newspaper(){
+		 			var subscribers ={};
+
+		 			var subscription = function (key,callback){
+		 				if (!subscribers[key]){
+		 					subscribers[key] = [callback];
+		 					}else{
+		 					subscribers[event].push(callback);	
+		 					}
+						}
+				
+					var publication = function (key, callback){
+					subscribers[key].forEach(function(callback){
+						callback();
+					});
+					}
+
+					return	{
+						subscribe : subscription,
+		 				publish : publication
+		 			};
+		 			})();
+		 			
+
+
+		 	newspaper.subscribe('sports',function(e){
+		 		 e = prompt ("Enter your name");
+		 		console.log( e + " Sports has arrived");
+		 	});
+				newspaper.publish('sports');
+
+			newspaper.subscribe('movies',function(e){
+				e = prompt("enter name");
+				console.log (e  + " movies have updated!") 
+			});
+				newspaper.publish('movies');	
+
+		 })();
+
+
+
+					
+
+	</script>
+	
+</body>
+</html>

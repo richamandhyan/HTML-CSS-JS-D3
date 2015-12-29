@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		(function(){
+			'use strict';
+
+			function mixin(){
+				var prop,//all are local variables below -comma separated
+				    newPrototype = {},
+				    args = Array.prototype.slice.call(arguments),
+				    baseObject = args[0],
+				    prototypes = args.slice(1);//has shape2d and position
+
+				    //checks for methods in the prototypes
+				    prototypes.forEach(function(item){
+				    	for (prop in item){
+				    		if(item.hasOwnProperty(prop)){
+				    			newPrototype[prop] = item[prop];
+				    		}
+				    	}
+				    });
+				    //add properties (methods) to the base object(rectangle)
+				    baseObject.prototype = newPrototype;
+				    //overwriting the contructor
+				    baseObject.prototype.constructor = baseObject;
+			}
+
+		function Shape2D(){}
+		Shape2D.prototype.getArea = function(){
+			return this.sides[0] * this.sides[1]
+		};
+
+		function Position(){}
+		Position.prototype.getCoordinates = function(){
+			return this.coordinates.join(' ,')
+		}	
+
+		function Rectangle(width, height, left, right){
+			this.sides = [width, height];
+			this.coordinates = [left , right];
+		}
+
+		mixin(Rectangle, Shape2D.prototype, Position.prototype);
+
+		var r1 = new Rectangle(5, 6, 100, 200);
+
+		console.log(r1.getArea());
+		console.log(r1.getCoordinates());
+		})();
+	</script>
+</body>
+</html>
